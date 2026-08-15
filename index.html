@@ -341,12 +341,18 @@
 
   <!--FOOTER -->
   <footer
-    id="contact"
-    class="bg-gradient-to-br from-[#075B91] to-[#0B3C80] px-7 pb-3 pt-4 text-white sm:px-10"
+  id="contact"
+  class="bg-gradient-to-br from-[#075B91] to-[#0B3C80] px-[210px] pb-4 pt-7 text-white sm:px-10 sm:pt-4"
+>
+  <div
+    class="mx-auto grid max-w-[1200px] grid-cols-1 gap-7 text-left sm:grid-cols-4 sm:gap-5"
   >
-    <div class="mx-auto grid max-w-[1200px] grid-cols-1 gap-5 sm:grid-cols-4 text-center sm:text-left">
 
-      <section aria-labelledby="footer-brand">
+    <!-- Brand -->
+    <section aria-labelledby="footer-brand">
+
+      <!-- Logo centered on mobile -->
+      <div class="flex justify-center sm:justify-start">
         <a href="#" class="inline-block">
           <img
             src="assets/DataPilot_logo_transparent_corrected.svg"
@@ -354,79 +360,138 @@
             class="h-[32px] w-auto"
           >
         </a>
+      </div>
 
-        <h2 id="footer-brand" class="sr-only">About DataPilot</h2>
+      <h2 id="footer-brand" class="sr-only">
+        About DataPilot
+      </h2>
 
-        <p class="mt-1 max-w-[250px] text-[20px] leading-[1.4] text-white/90">
-          Powerful analytics and intelligent insights to help modern teams make smarter decisions with confidence.
+      <p
+        class="mx-auto mt-4 max-w-[200px] text-[16px] font-semibold leading-[1.45] text-white sm:mx-0 sm:max-w-[250px] sm:text-[20px]"
+      >
+        Powerful analytics and intelligent insights to help modern teams understand their data and move forward with confidence.
+      </p>
+
+    </section>
+
+
+    <!-- Quick Links -->
+    <section aria-labelledby="quick-links">
+
+      <h2
+        id="quick-links"
+        class="text-left text-[25px] font-bold text-dp-navy sm:text-[30px]"
+      >
+        Quick Links
+      </h2>
+
+      <nav aria-label="Footer navigation">
+        <ul
+          class="mt-0.5 space-y-0.5 text-left text-[18px] font-semibold text-white sm:text-[25px]"
+        >
+          <li>
+            <a href="#" class="hover:text-white">
+              Home
+            </a>
+          </li>
+
+          <li>
+            <a href="#about" class="hover:text-white">
+              About
+            </a>
+          </li>
+
+          <li>
+            <a href="#services" class="hover:text-white">
+              Services
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+    </section>
+
+
+    <!-- Our Services -->
+    <section aria-labelledby="our-services">
+
+      <h2
+        id="our-services"
+        class="text-left text-[25px] font-bold text-dp-navy sm:text-[30px]"
+      >
+        Our Services
+      </h2>
+
+      <ul
+        class="mt-0.5 space-y-0.5 text-left text-[18px] font-semibold text-white sm:text-[25px]"
+      >
+        <li>Data Integration</li>
+        <li>Data Analytics</li>
+        <li>Smart Reporting</li>
+      </ul>
+
+    </section>
+
+
+    <!-- Contact -->
+    <section aria-labelledby="contact-title">
+
+      <h2
+        id="contact-title"
+        class="text-left text-[25px] font-bold text-dp-navy sm:text-[30px]"
+      >
+        Contact Us
+      </h2>
+
+      <address
+        class="mt-2 not-italic text-[17px] font-semibold leading-[1.5] text-white sm:text-[25px]"
+      >
+
+        <p class="flex items-center gap-2.5">
+          <svg
+            class="h-5 w-5 flex-shrink-0 text-dp-navy sm:h-6 sm:w-6"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.2.48 2.5.74 3.83.74a1 1 0 011 1V20a1 1 0 01-1 1C9.39 21 3 14.61 3 6a1 1 0 011-1h3.5a1 1 0 011 1c0 1.33.26 2.63.74 3.83a1 1 0 01-.21 1.11l-2.2 2.2z" />
+          </svg>
+
+          <span>+1 (555) 014-7823</span>
         </p>
-      </section>
+
+        <p class="mt-4 flex items-center gap-2.5">
+          <svg
+            class="h-5 w-5 flex-shrink-0 text-dp-navy sm:h-6 sm:w-6"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path d="M2 6.5A2.5 2.5 0 014.5 4h15A2.5 2.5 0 0122 6.5v11A2.5 2.5 0 0119.5 20h-15A2.5 2.5 0 012 17.5v-11zM4.5 6L12 11l7.5-5" />
+          </svg>
+
+          <span>hi@datapilot.example</span>
+        </p>
+
+      </address>
+
+    </section>
+
+  </div>
 
 
-      <!--Links -->
-      <section aria-labelledby="quick-links">
-          <div class="w-full text-left sm:w-full">
-            <h2 id="quick-links" class="text-[30px] font-bold text-dp-navy text-center sm:text-left">
-              Quick Links
-            </h2>
-
-            <nav aria-label="Footer navigation" >
-              <ul class="mt-1 space-y-0.5 text-[25px] text-white/90">
-                <li><a href="#" class="hover:text-white">Home</a></li>
-                <li><a href="#about" class="hover:text-white">About</a></li>
-                <li><a href="#services" class="hover:text-white">Services</a></li>
-              </ul>
-            </nav>
-          </div>
-        </section>
-
-
-      <!-- Services -->
-      <section aria-labelledby="our-services">
-          <div class="mx-auto w-fit sm:mx-0 sm:w-full">
-            <h2 id="our-services" class="text-[30px] font-bold text-dp-navy text-center sm:text-left">
-              Our Services
-            </h2>
-
-            <ul class="mt-1 space-y-0.5 text-[25px] text-white/90">
-              <li>Data Integration</li>
-              <li>Data Analytics</li>
-              <li>Smart Reporting</li>
-            </ul>
-          </div>
-        </section>
-
-
-      <!--Contact-->
-      <section aria-labelledby="contact-title">
-          <div class="mx-auto w-fit sm:mx-0 sm:w-full">
-            <h2 id="contact-title" class="text-[30px] font-bold text-dp-navy text-center sm:text-left">
-              Contact Us
-            </h2>
-
-            <address class="mt-1 not-italic text-[25px] leading-[1.5] text-white/90">
-              <p class="flex items-center gap-3">
-                <svg class="h-6 w-6 text-dp-navy flex-shrink-0" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21c1.2.48 2.5.74 3.83.74a1 1 0 011 1V20a1 1 0 01-1 1C9.39 21 3 14.61 3 6a1 1 0 011-1h3.5a1 1 0 011 1c0 1.33.26 2.63.74 3.83a1 1 0 01-.21 1.11l-2.2 2.2z" />
-                </svg>
-                <span>+1 (555) 014-7823</span>
-              </p>
-              <p class="flex items-center gap-3 mt-1">
-                <svg class="h-6 w-6 text-dp-navy flex-shrink-0" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M2 6.5A2.5 2.5 0 014.5 4h15A2.5 2.5 0 0122 6.5v11A2.5 2.5 0 0119.5 20h-15A2.5 2.5 0 012 17.5v-11zM4.5 6L12 11l7.5-5" />
-                </svg>
-                <span>hello@datapilot.example</span>
-              </p>
-            </address>
-          </div>
-        </section>
-
-    </div>
-
-    <p class="mx-auto mt-4 max-w-[1200px] border-t border-white/20 pt-1.5 text-center text-[25px] text-white/70">
+  <!-- Divider -->
+  <div class="mt-8 -mx-[210px] w-[calc(100%+420px)] border-t border-white/60 pt-3">
+    <p
+      class="text-center text-[18px] text-white/70 sm:text-[25px]"
+    >
       © 2026 DataPilot. All rights reserved.
     </p>
-   </footer>
+  </div>
+
+</footer>
 
     <script>
       (function(){
