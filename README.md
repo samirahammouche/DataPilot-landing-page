@@ -26,7 +26,7 @@ The website is designed to work across:
 
 ## Screen-shots
 Desktop:
-![DataPilot Desktop](assets/screenshot2.png)
+![DataPilot Desktop](assets/screenshot3.png)
 
 Mobile:
 ![DataPilot Desktop](assets/screenshot1.png)
