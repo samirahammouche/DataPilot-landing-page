@@ -41,7 +41,7 @@
     }
   </style>
 </head>
-
+<script src="script.js" defer></script>
 <body class="m-0 bg-white font-sans text-dp-navy">
 
   <header class="absolute left-0 right-0 top-0 z-30">
@@ -490,25 +490,6 @@
 
 </footer>
 
-    <script>
-      (function(){
-        const btn = document.getElementById('mobile-menu-button');
-        const menu = document.getElementById('mobile-menu');
-        if (!btn || !menu) return;
-        btn.addEventListener('click', function(){
-          const expanded = btn.getAttribute('aria-expanded') === 'true';
-          btn.setAttribute('aria-expanded', String(!expanded));
-          menu.classList.toggle('hidden');
-        });
-        // close menu on resize to small/large boundary
-        window.addEventListener('resize', function(){
-          if (window.innerWidth >= 640) {
-            menu.classList.add('hidden');
-            btn.setAttribute('aria-expanded', 'false');
-          }
-        });
-      })();
-    </script>
 
    </body>
    </html>
