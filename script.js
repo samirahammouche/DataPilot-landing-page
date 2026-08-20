@@ -22,21 +22,28 @@
 
 //Light / Dark Mode 
 (function () {
-  const darkModeToggle = document.getElementById('dark-mode-toggle');
   const htmlElement = document.documentElement;
-
+ 
   // Apply saved preference as soon as the script runs
   const savedTheme = localStorage.getItem('theme');
   if (savedTheme === 'dark') {
     htmlElement.classList.add('dark');
   }
-
-  if (!darkModeToggle) return;
-
-  darkModeToggle.addEventListener('click', function () {
+ 
+  function toggleTheme() {
     htmlElement.classList.toggle('dark');
     const isDark = htmlElement.classList.contains('dark');
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  }
+ 
+  // Both the desktop nav button and the mobile menu button control the same theme
+  const toggleButtons = [
+    document.getElementById('dark-mode-toggle'),
+    document.getElementById('dark-mode-toggle-mobile')
+  ].filter(Boolean);
+ 
+  toggleButtons.forEach(function (button) {
+    button.addEventListener('click', toggleTheme);
   });
 })();
 
@@ -49,7 +56,6 @@
     faqButton.addEventListener('click', function () {
       const answer = faqButton.nextElementSibling;
       if (!answer) return;
-
       const isOpen = !answer.classList.contains('hidden');
 
       // Close all other open answers (optional "one open at a time" behavior)
