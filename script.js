@@ -51,24 +51,35 @@
 (function () {
   const faqButtons = document.querySelectorAll('.faq-btn');
   if (!faqButtons.length) return;
-
   faqButtons.forEach(function (faqButton) {
     faqButton.addEventListener('click', function () {
       const answer = faqButton.nextElementSibling;
       if (!answer) return;
       const isOpen = !answer.classList.contains('hidden');
 
-      // Close all other open answers (optional "one open at a time" behavior)
+      // Close all other open answers
       document.querySelectorAll('.faq-btn').forEach(function (otherButton) {
         const otherAnswer = otherButton.nextElementSibling;
+        const otherIcon = otherButton.querySelector('.faq-icon');
         if (otherAnswer && otherButton !== faqButton) {
           otherAnswer.classList.add('hidden');
           otherButton.setAttribute('aria-expanded', 'false');
+
+          if (otherIcon) {
+            otherIcon.textContent = '+';
+          }
         }
       });
 
       answer.classList.toggle('hidden', isOpen);
       faqButton.setAttribute('aria-expanded', String(!isOpen));
+
+      // Change + to - when open
+      const icon = faqButton.querySelector('.faq-icon');
+
+      if (icon) {
+        icon.textContent = isOpen ? '+' : '-';
+      }
     });
   });
 })();

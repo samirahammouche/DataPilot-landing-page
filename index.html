@@ -74,6 +74,7 @@
         <li>
           <a href="#services" class="transition-opacity hover:opacity-70">Services</a>
         </li>
+        <li><a href="#faq" class="transition-opacity hover:opacity-70">FAQ</a></li>
       </ul>
          <div class="hidden sm:flex items-center gap-4">
             <button
@@ -110,6 +111,7 @@
           <li><a href="#" class="block text-dp-yellow font-semibold">Home</a></li>
           <li><a href="#about" class="block text-dp-yellow font-semibold">About</a></li>
           <li><a href="#services" class="block text-dp-yellow font-semibold">Services</a></li>
+          <li><a href="#faq" class="block text-dp-yellow font-semibold">FAQ</a></li>
           <li>
             <a href="#contact" class="inline-block w-[140px] rounded-full bg-dp-navy px-4 py-2 text-center text-[12px] font-bold text-white">Sign Up</a>
           </li>
@@ -600,7 +602,8 @@
             type="text"
             id="contact-name"
             name="name"
-            placeholder="Your name"
+            placeholder="Your name" 
+            autocomplete="name"
             class="w-full rounded-md border-2 border-white/30 bg-white/10 px-4 py-2.5 text-white placeholder-white/50 outline-none transition-colors focus:border-dp-yellow"
           >
           <p id="contact-name-error" class="mt-1 hidden text-[14px] font-medium text-red-300"></p>
@@ -613,6 +616,7 @@
             id="contact-email"
             name="email"
             placeholder="you@example.com"
+            autocomplete="email"
             class="w-full rounded-md border-2 border-white/30 bg-white/10 px-4 py-2.5 text-white placeholder-white/50 outline-none transition-colors focus:border-dp-yellow"
           >
           <p id="contact-email-error" class="mt-1 hidden text-[14px] font-medium text-red-300"></p>
