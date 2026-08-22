@@ -26,10 +26,12 @@ The website is designed to work across:
 
 ## Screen-shots
 Desktop:
-![DataPilot Desktop](assets/screen-shot3.png)
+![DataPilot Desktop](assets/img1.png)
+![DataPilot Desktop](assets/img3.png)
 
 Mobile:
 ![DataPilot Desktop](assets/screenshot1.png)
+![DataPilot Desktop](assets/img2.png)
 
 ## Author
 Samira Hammouche

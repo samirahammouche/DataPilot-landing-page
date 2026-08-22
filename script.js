@@ -119,7 +119,6 @@
       setFieldState(emailInput, false, 'Email is required.');
       return false;
     }
-    
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const isValid = emailRegex.test(trimmed);
     setFieldState(emailInput, isValid, 'Please enter a valid email address.');
@@ -134,7 +133,6 @@
     emailInput.addEventListener('input', validateEmail);
     emailInput.addEventListener('blur', validateEmail);
   }
-
   // Prevent submission if fields are invalid
   const contactForm = document.getElementById('contact-form');
   if (contactForm) {
