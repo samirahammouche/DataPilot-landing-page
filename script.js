@@ -106,22 +106,36 @@
   }
 
   function validateName() {
-    const isValid = nameInput.value.trim().length > 0;
+    const trimmed = nameInput.value.trim();
+    const isValid = trimmed.length > 0;
     setFieldState(nameInput, isValid, 'Name is required.');
     return isValid;
   }
 
   function validateEmail() {
-    const isValid = emailInput.value.includes('@') && emailInput.value.trim().length > 3;
+    const trimmed = emailInput.value.trim();
+    
+    // Empty → "Email is required."
+    if (trimmed === '') {
+      setFieldState(emailInput, false, 'Email is required.');
+      return false;
+    }
+    
+    // Invalid format → "Please enter a valid email address."
+    // More robust email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValid = emailRegex.test(trimmed);
     setFieldState(emailInput, isValid, 'Please enter a valid email address.');
     return isValid;
   }
 
   if (nameInput) {
     nameInput.addEventListener('input', validateName);
+    nameInput.addEventListener('blur', validateName);
   }
   if (emailInput) {
     emailInput.addEventListener('input', validateEmail);
+    emailInput.addEventListener('blur', validateEmail);
   }
 
   // Prevent submission if fields are invalid
@@ -132,6 +146,11 @@
       const emailValid = emailInput ? validateEmail() : true;
       if (!nameValid || !emailValid) {
         e.preventDefault();
+        // Focus the first invalid field
+        if (!nameValid && nameInput) nameInput.focus();
+        else if (!emailValid && emailInput) emailInput.focus();
+      } else {
+        alert('✅ Form submitted successfully!');
       }
     });
   }
