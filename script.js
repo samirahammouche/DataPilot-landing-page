@@ -114,15 +114,12 @@
 
   function validateEmail() {
     const trimmed = emailInput.value.trim();
-    
-    // Empty → "Email is required."
+  
     if (trimmed === '') {
       setFieldState(emailInput, false, 'Email is required.');
       return false;
     }
     
-    // Invalid format → "Please enter a valid email address."
-    // More robust email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const isValid = emailRegex.test(trimmed);
     setFieldState(emailInput, isValid, 'Please enter a valid email address.');
@@ -150,7 +147,7 @@
         if (!nameValid && nameInput) nameInput.focus();
         else if (!emailValid && emailInput) emailInput.focus();
       } else {
-        alert('✅ Form submitted successfully!');
+        alert('Form submitted successfully!');
       }
     });
   }
