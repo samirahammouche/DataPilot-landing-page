@@ -1,152 +1,185 @@
-
-// Mobile Navigation 
+// ============================================
+// 1. MOBILE NAVIGATION
+// ============================================
 (function () {
   const menuButton = document.getElementById('mobile-menu-button');
   const mobileMenu = document.getElementById('mobile-menu');
   if (!menuButton || !mobileMenu) return;
 
-  menuButton.addEventListener('click', function () {
+  function toggleMenu(forceClose) {
     const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
-    menuButton.setAttribute('aria-expanded', String(!isExpanded));
-    mobileMenu.classList.toggle('hidden');
+    const shouldOpen = forceClose ? false : !isExpanded;
+
+    menuButton.setAttribute('aria-expanded', String(shouldOpen));
+    mobileMenu.classList.toggle('hidden', !shouldOpen);
+  }
+
+  menuButton.addEventListener('click', () => toggleMenu());
+
+  // Close on resize to desktop
+  window.addEventListener('resize', function () {
+    if (window.innerWidth >= 640) toggleMenu(true);
   });
 
-  // Close the mobile menu automatically if the window is resized past the mobile breakpoint
-  window.addEventListener('resize', function () {
-    if (window.innerWidth >= 640) {
-      mobileMenu.classList.add('hidden');
-      menuButton.setAttribute('aria-expanded', 'false');
+  // Close on Escape key
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+      toggleMenu(true);
+      menuButton.focus();
+    }
+  });
+
+  // Close when clicking outside the menu
+  document.addEventListener('click', function (e) {
+    if (
+      !mobileMenu.classList.contains('hidden') &&
+      !mobileMenu.contains(e.target) &&
+      !menuButton.contains(e.target)
+    ) {
+      toggleMenu(true);
     }
   });
 })();
 
-//Light / Dark Mode 
+// ============================================
+// 2. LIGHT / DARK MODE
+// ============================================
 (function () {
-  const htmlElement = document.documentElement;
- 
-  // Apply saved preference as soon as the script runs
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme === 'dark') {
-    htmlElement.classList.add('dark');
+  const html = document.documentElement;
+  const STORAGE_KEY = 'theme';
+
+  function applyTheme(theme) {
+    html.classList.toggle('dark', theme === 'dark');
   }
- 
+
+  // Check saved preference first, then system preference, default to light
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) {
+    applyTheme(saved);
+  } else {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    applyTheme(prefersDark ? 'dark' : 'light');
+  }
+
   function toggleTheme() {
-    htmlElement.classList.toggle('dark');
-    const isDark = htmlElement.classList.contains('dark');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    const isDark = html.classList.toggle('dark');
+    localStorage.setItem(STORAGE_KEY, isDark ? 'dark' : 'light');
   }
- 
-  // Both the desktop nav button and the mobile menu button control the same theme
-  const toggleButtons = [
-    document.getElementById('dark-mode-toggle'),
-    document.getElementById('dark-mode-toggle-mobile')
-  ].filter(Boolean);
- 
-  toggleButtons.forEach(function (button) {
-    button.addEventListener('click', toggleTheme);
+
+  ['dark-mode-toggle', 'dark-mode-toggle-mobile'].forEach(function (id) {
+    const btn = document.getElementById(id);
+    if (btn) btn.addEventListener('click', toggleTheme);
   });
 })();
 
-// FAQ Accordion
+// ============================================
+// 3. FAQ ACCORDION
+// ============================================
 (function () {
-  const faqButtons = document.querySelectorAll('.faq-btn');
-  if (!faqButtons.length) return;
-  faqButtons.forEach(function (faqButton) {
-    faqButton.addEventListener('click', function () {
-      const answer = faqButton.nextElementSibling;
-      if (!answer) return;
+  const buttons = document.querySelectorAll('.faq-btn');
+  if (!buttons.length) return;
+
+  buttons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const answer = btn.nextElementSibling;
+      const icon = btn.querySelector('.faq-icon');
       const isOpen = !answer.classList.contains('hidden');
 
-      // Close all other open answers
-      document.querySelectorAll('.faq-btn').forEach(function (otherButton) {
-        const otherAnswer = otherButton.nextElementSibling;
-        const otherIcon = otherButton.querySelector('.faq-icon');
-        if (otherAnswer && otherButton !== faqButton) {
-          otherAnswer.classList.add('hidden');
-          otherButton.setAttribute('aria-expanded', 'false');
-
-          if (otherIcon) {
-            otherIcon.textContent = '+';
-          }
-        }
+      // Close ALL answers first (accordion behavior)
+      buttons.forEach(function (otherBtn) {
+        const otherAnswer = otherBtn.nextElementSibling;
+        const otherIcon = otherBtn.querySelector('.faq-icon');
+        if (otherAnswer) otherAnswer.classList.add('hidden');
+        otherBtn.setAttribute('aria-expanded', 'false');
+        if (otherIcon) otherIcon.textContent = '+';
       });
 
-      answer.classList.toggle('hidden', isOpen);
-      faqButton.setAttribute('aria-expanded', String(!isOpen));
-
-      // Change + to - when open
-      const icon = faqButton.querySelector('.faq-icon');
-
-      if (icon) {
-        icon.textContent = isOpen ? '+' : '-';
+      // Toggle current: if it was closed, open it; if open, keep closed
+      if (!isOpen) {
+        answer.classList.remove('hidden');
+        btn.setAttribute('aria-expanded', 'true');
+        if (icon) icon.textContent = '-';
       }
     });
   });
 })();
 
-// Real-Time Form Validation 
+// ============================================
+// 4. FORM VALIDATION
+// ============================================
 (function () {
+  const form = document.getElementById('contact-form');
   const nameInput = document.getElementById('contact-name');
   const emailInput = document.getElementById('contact-email');
-  if (!nameInput && !emailInput) return;
+  const successMsg = document.getElementById('form-success');
 
-  const VALID_CLASSES = ['border-green-500'];
-  const INVALID_CLASSES = ['border-red-500'];
+  if (!form || (!nameInput && !emailInput)) return;
 
-  function setFieldState(input, isValid, errorMessage) {
-    const errorEl = document.getElementById(input.id + '-error');
+  const VALID = ['border-green-500'];
+  const INVALID = ['border-red-500'];
 
-    input.classList.remove(...VALID_CLASSES, ...INVALID_CLASSES);
-    input.classList.add(...(isValid ? VALID_CLASSES : INVALID_CLASSES));
-
-    if (errorEl) {
-      errorEl.textContent = isValid ? '' : errorMessage;
-      errorEl.classList.toggle('hidden', isValid);
+  function setState(input, isValid, msg) {
+    const err = document.getElementById(input.id + '-error');
+    input.classList.remove(...VALID, ...INVALID);
+    input.classList.add(...(isValid ? VALID : INVALID));
+    if (err) {
+      err.textContent = isValid ? '' : msg;
+      err.classList.toggle('hidden', isValid);
     }
   }
 
   function validateName() {
-    const trimmed = nameInput.value.trim();
-    const isValid = trimmed.length > 0;
-    setFieldState(nameInput, isValid, 'Name is required.');
-    return isValid;
+    const ok = nameInput.value.trim().length > 0;
+    setState(nameInput, ok, 'Name is required.');
+    return ok;
   }
 
   function validateEmail() {
-    const trimmed = emailInput.value.trim();
-  
-    if (trimmed === '') {
-      setFieldState(emailInput, false, 'Email is required.');
+    const val = emailInput.value.trim();
+    if (!val) {
+      setState(emailInput, false, 'Email is required.');
       return false;
     }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const isValid = emailRegex.test(trimmed);
-    setFieldState(emailInput, isValid, 'Please enter a valid email address.');
-    return isValid;
+    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+    setState(emailInput, ok, 'Please enter a valid email address.');
+    return ok;
+  }
+
+  // Debounce input validation for performance
+  function debounce(fn, ms) {
+    let t;
+    return function () {
+      clearTimeout(t);
+      t = setTimeout(fn, ms);
+    };
   }
 
   if (nameInput) {
-    nameInput.addEventListener('input', validateName);
+    nameInput.addEventListener('input', debounce(validateName, 300));
     nameInput.addEventListener('blur', validateName);
   }
   if (emailInput) {
-    emailInput.addEventListener('input', validateEmail);
+    emailInput.addEventListener('input', debounce(validateEmail, 300));
     emailInput.addEventListener('blur', validateEmail);
   }
-  // Prevent submission if fields are invalid
-  const contactForm = document.getElementById('contact-form');
-  if (contactForm) {
-    contactForm.addEventListener('submit', function (e) {
-      const nameValid = nameInput ? validateName() : true;
-      const emailValid = emailInput ? validateEmail() : true;
-      if (!nameValid || !emailValid) {
-        e.preventDefault();
-        // Focus the first invalid field
-        if (!nameValid && nameInput) nameInput.focus();
-        else if (!emailValid && emailInput) emailInput.focus();
-      } else {
-        alert('Form submitted successfully!');
-      }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault(); // Always prevent — no backend
+
+    const nameOk = nameInput ? validateName() : true;
+    const emailOk = emailInput ? validateEmail() : true;
+
+    if (!nameOk || !emailOk) {
+      if (successMsg) successMsg.classList.add('hidden');
+      (!nameOk ? nameInput : emailInput)?.focus();
+      return;
+    }
+
+    // Success
+    form.reset();
+    [nameInput, emailInput].forEach(function (input) {
+      if (input) input.classList.remove(...VALID, ...INVALID);
     });
-  }
+    if (successMsg) successMsg.classList.remove('hidden');
+  });
 })();
