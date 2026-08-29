@@ -34,7 +34,7 @@ Mobile:
 ![DataPilot Desktop](assets/img2.png)
 
 ## Lighthouse Scores
-- Performance: 98
+- Performance: 99
 - Accessibility: 100
 - Best Practices: 100
 - SEO: 100
