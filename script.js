@@ -79,26 +79,71 @@
   const buttons = document.querySelectorAll('.faq-btn');
   if (!buttons.length) return;
 
+  // Add transition classes to all answers initially
+  buttons.forEach(function (btn) {
+    const answer = btn.nextElementSibling;
+    if (answer) {
+      // Set initial state
+      answer.style.maxHeight = '0';
+      answer.style.overflow = 'hidden';
+      answer.style.transition = 'max-height 0.3s ease-in-out, opacity 0.25s ease-in-out, padding 0.3s ease-in-out';
+      answer.style.opacity = '0';
+      answer.style.paddingTop = '0';
+      answer.style.paddingBottom = '0';
+      
+      // If it's hidden by default, keep it collapsed
+      if (answer.classList.contains('hidden')) {
+        answer.style.maxHeight = '0';
+        answer.style.opacity = '0';
+        answer.style.paddingTop = '0';
+        answer.style.paddingBottom = '0';
+      } else {
+        // If it's visible by default (shouldn't happen with hidden class)
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+        answer.style.opacity = '1';
+        answer.style.paddingTop = '';
+        answer.style.paddingBottom = '';
+      }
+    }
+  });
+
   buttons.forEach(function (btn) {
     btn.addEventListener('click', function () {
       const answer = btn.nextElementSibling;
       const icon = btn.querySelector('.faq-icon');
-      const isOpen = !answer.classList.contains('hidden');
+      const isOpen = answer && answer.style.maxHeight !== '0px' && answer.style.maxHeight !== '0';
 
       // Close ALL answers first (accordion behavior)
       buttons.forEach(function (otherBtn) {
         const otherAnswer = otherBtn.nextElementSibling;
         const otherIcon = otherBtn.querySelector('.faq-icon');
-        if (otherAnswer) otherAnswer.classList.add('hidden');
-        otherBtn.setAttribute('aria-expanded', 'false');
-        if (otherIcon) otherIcon.textContent = '+';
+        if (otherAnswer && otherAnswer !== answer) {
+          otherAnswer.style.maxHeight = '0';
+          otherAnswer.style.opacity = '0';
+          otherAnswer.style.paddingTop = '0';
+          otherAnswer.style.paddingBottom = '0';
+          otherBtn.setAttribute('aria-expanded', 'false');
+          if (otherIcon) otherIcon.textContent = '+';
+        }
       });
 
       // Toggle current: if it was closed, open it; if open, keep closed
       if (!isOpen) {
-        answer.classList.remove('hidden');
+        // Open it
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+        answer.style.opacity = '1';
+        answer.style.paddingTop = '';
+        answer.style.paddingBottom = '';
         btn.setAttribute('aria-expanded', 'true');
-        if (icon) icon.textContent = '-';
+        if (icon) icon.textContent = '−'; // Using minus sign (U+2212) for better alignment
+      } else {
+        // Close it (already closed via accordion behavior above, but just in case)
+        answer.style.maxHeight = '0';
+        answer.style.opacity = '0';
+        answer.style.paddingTop = '0';
+        answer.style.paddingBottom = '0';
+        btn.setAttribute('aria-expanded', 'false');
+        if (icon) icon.textContent = '+';
       }
     });
   });

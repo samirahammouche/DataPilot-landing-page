@@ -33,5 +33,10 @@ Mobile:
 ![DataPilot Desktop](assets/screenshot1.png)
 ![DataPilot Desktop](assets/img2.png)
 
+## Lighthouse Scores
+- Performance: 98
+- Accessibility: 100
+- Best Practices: 100
+- SEO: 100
 ## Author
 Samira Hammouche
