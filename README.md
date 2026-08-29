@@ -38,5 +38,6 @@ Mobile:
 - Accessibility: 100
 - Best Practices: 100
 - SEO: 100
+![DataPilot Desktop](assets/auditing.png)
 ## Author
 Samira Hammouche
