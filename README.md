@@ -2,6 +2,9 @@
 DataPilot is a modern AI-powered data analytics platform designed to help businesses turn their company data into clear, actionable insights.
 This project is a responsive landing page created to showcase the DataPilot platform and its main features.
 
+## Link of the page 
+https://data-pilot-landing-page-smoky.vercel.app/
+
 ## Features
 - Responsive desktop and mobile design
 - Mobile navigation menu
