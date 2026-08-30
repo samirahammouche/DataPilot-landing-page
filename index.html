@@ -82,7 +82,7 @@
       <!-- Mobile hamburger-->
       <button id="mobile-menu-button" aria-controls="mobile-menu" aria-expanded="false" class="sm:hidden inline-flex items-center justify-center rounded-md p-2">
         <span class="sr-only">Open main menu</span>
-        <img src="assets/menu.svg" alt="Menu" class="h-10 w-10">
+        <img src="assets/menu.svg" alt="Menu" aria-hidden="true" class="h-10 w-10">
       </button>
 
       <ul class="hidden sm:flex absolute left-1/2 -translate-x-1/2 items-center gap-20 text-[30px] text-white">        
@@ -488,7 +488,7 @@
               <span>Can I cancel my plan at any time?</span>
               <span class="faq-icon ml-4 text-dp-yellow" aria-hidden="true">+</span>
             </button>
-            <div class="px-5 text-[16px] leading-[1.5] text-dp-navy/80 dark:text-white/70 sm:text-[18px]">
+            <div class="px-5 text-[16px] leading-[1.5] text-dp-navy/80 dark:text-white/70 sm:text-[18px]" >
               Yes, you can upgrade, downgrade, or cancel your plan at any time with no long-term commitment.
             </div>
           </div>
@@ -654,6 +654,7 @@
             name="name"
             placeholder="Your name" 
             autocomplete="name"
+            aria-required="true"
             class="w-full rounded-md border-2 border-white/30 bg-white/10 px-4 py-2.5 text-white placeholder-white/50 outline-none transition-colors focus:border-dp-yellow"
           >
           <p id="contact-name-error" class="mt-1 hidden text-[14px] font-medium text-red-300"></p>
@@ -667,6 +668,7 @@
             name="email"
             placeholder="you@example.com"
             autocomplete="email"
+            aria-required="true"
             class="w-full rounded-md border-2 border-white/30 bg-white/10 px-4 py-2.5 text-white placeholder-white/50 outline-none transition-colors focus:border-dp-yellow"
           >
           <p id="contact-email-error" class="mt-1 hidden text-[14px] font-medium text-red-300"></p>
